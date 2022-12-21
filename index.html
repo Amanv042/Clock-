@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> GlassEffectClock</title>
+
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            height: 100vh;
+            width: 100vw;
+            background: url(./back.png) center no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            position: relative;
+            height: 500px;
+            width: 500px;
+            background-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            z-index: 99;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: UpDown 4s linear infinite;
+        }
+
+        .clock {
+
+            position: absolute;
+            border: 2px solid white;
+            height: 400px;
+            width: 400px;
+            border-radius: 50%;
+        }
+
+        #hour,
+        #minute,
+        #second {
+            position: absolute;
+            border-radius: 100px;
+            transform-origin: bottom;
+            background-color: white;
+        }
+
+        .centerDot {
+            position: absolute;
+            height: 7px;
+            width: 7px;
+            border-radius: 50%;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgb(255, 255, 255);
+            z-index: 99;
+        }
+
+        #hour {
+            height: 60px;
+            width: 5px;
+            left: 49.365%;
+            top: 35.15%;
+        }
+
+        #minute {
+            height: 90px;
+            width: 3px;
+            left: 49.645%;
+            top: 27.6%;
+        }
+
+
+        #second {
+            height: 160px;
+            width: 1px;
+            left: 49.898%;
+            top: 9.7%;
+        }
+
+
+        #digitalClock {
+            position: absolute;
+            top: 70%;
+            left: 33%;
+            display: flex;
+            font-family: monospace;
+            font-weight: 700;
+            font-size: 24px;
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 8px 16px;
+            border-radius: 8px;
+            color: white;
+        }
+
+
+
+
+        @keyframes UpDown {
+
+            0% {
+                transform: translateY(0);
+            }
+
+
+            50% {
+                transform: translateY(-20px);
+
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="clock">
+                <div class="centerDot"></div>
+                <div id="digitalClock">
+                    <div id="hr"></div>
+                    <div id="mi"></div>
+                    <div id="se"></div>
+                </div>
+                <div id="hour"></div>
+                <div id="minute"></div>
+                <div id="second"></div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script>
+        setInterval(() => {
+
+            d = new Date();
+
+
+            timeHour = d.getHours();
+            timeMinute = d.getMinutes();
+            timeSecond = d.getSeconds();
+
+
+
+
+            rHour = 30 * timeHour + timeMinute / 2;
+            rMinute = 6 * timeMinute;
+            rSecond = 6 * timeSecond;
+
+
+
+
+            hour.style.transform = `rotate(${rHour}deg)`;
+            minute.style.transform = `rotate(${rMinute}deg)`;
+            second.style.transform = `rotate(${rSecond}deg)`;
+
+            if (timeHour < 10) {
+                document.getElementById("hr").innerHTML = "0" + timeHour + ":";
+            } else {
+                document.getElementById("hr").innerHTML = timeHour + ":";
+            }
+
+
+
+            if (timeMinute < 10) {
+                document.getElementById("mi").innerHTML = "0" + timeMinute + ":";
+            } else {
+                document.getElementById("mi").innerHTML = timeMinute + ":";
+            }
+
+
+
+            if (timeSecond < 10) {
+                document.getElementById("se").innerHTML = "0" + timeSecond;
+            } else {
+
+                document.getElementById("se").innerHTML = timeSecond;
+            }
+
+
+
+            // document.getElementById("digitalClock").innerHTML = d.getHours()  + ":"+ d.getMinutes() + ":" +  timeSecond ;
+
+
+
+        }, 1000);
+    </script>
+</body>
+
+</html>
